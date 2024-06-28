@@ -1,14 +1,14 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', false);
 
 // create connection and create db if not present - 
 mongoose.connect('mongodb://127.0.0.1:27017/girrajtechnical')
-.then( ()=>console.log('connection successful') )
-.catch( (err)=>console.log(err) );
+    .then(() => console.log('connection successful'))
+    .catch((err) => console.log(err));
 
 // Schema creation(structure of document)
-const playlistSchema=new mongoose.Schema({
+const playlistSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -24,7 +24,7 @@ const playlistSchema=new mongoose.Schema({
 })
 
 // model creation (for collection creation in DB)
-const Playlist=new mongoose.model('Playlist',playlistSchema)
+const Playlist = mongoose.model('Playlist', playlistSchema)
 
 
 
@@ -51,7 +51,7 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 //             author: 'girraj technical',
 //             active: true,
 //         })
-    
+
 //         const result= await reactPlaylist.save();
 //         console.log(result);
 //     }catch(err){
@@ -86,7 +86,7 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 //             author: 'girraj technical',
 //             active: true,
 //         })
-    
+
 //         const result= await Playlist.insertMany([jsPlaylist, mongodbPlaylist, mongoosePlaylist]);
 //         console.log(result);
 //     }catch(err){
@@ -98,14 +98,14 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 
 
 // for reading the document -
-// const getDocument=async()=>{
-//     try{
+// const getDocument = async () => {
+//     try {
 //         // const result =await Playlist.find();
-//     // const result =await Playlist.find({type:'front end'});
-//     // const result =await Playlist.find({type:'front end'}).select({name:1});
-//     const result =await Playlist.find({type:'front end'}).select({name:1}).limit(1);
-//     console.log(result);
-//     }catch(err){
+//         // const result =await Playlist.find({type:'front end'});
+//         // const result =await Playlist.find({type:'front end'}).select({name:1}); // select() for projection
+//         const result = await Playlist.find({ type: 'front end' }).select({ name: 1 }).limit(1);
+//         console.log(result);
+//     } catch (err) {
 //         console.log(err);
 //     }
 // }
@@ -138,7 +138,7 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 // $lt It is used to match values of the fields that are less than a specified value
 // $lte It is used to match values of the fields that are less than equals to the specified value
 // $in It is used to match any of the values specified in an array.
-// $nin It is used to match none of the values specified in an array. 
+// $nin It is used to match none of the values specified in an array.
 
 
 // Logical operators in mongoose -
@@ -155,13 +155,13 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 // getDocument();
 
 
-// counting queries in mongoose -
-// const getDocument=async()=>{
-//     try{
-//     // const result =await Playlist.find({$and:[{type:'back end'},{author:'girraj technical'}]}).select({name:1}).countDocuments();
-//     const result =await Playlist.find().countDocuments();
-//     console.log(result);
-//     }catch(err){
+// counting queries in mongoose - (use countDocuments(<query>) instead of count() because count() is deprecated )
+// const getDocument = async () => {
+//     try {
+//         // const result =await Playlist.find({$and:[{type:'back end'},{author:'girraj technical'}]}).select({name:1}).countDocuments();
+//         const result = await Playlist.find().countDocuments();
+//         console.log(result);
+//     } catch (err) {
 //         console.log(err);
 //     }
 // }
@@ -170,18 +170,18 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 
 
 // sorting in mongoose -
-// const getDocument=async()=>{
-//     try{
-//     const result =await Playlist.find({author:'girraj technical'}).select({name:1}).sort({name: 1});
-//     // const result =await Playlist.find({author:'girraj technical'}).select({name:1}).sort({name: -1});
-//     console.log(result);
-//     }catch(err){
+// const getDocument = async () => {
+//     try {
+//         const result = await Playlist.find({ author: 'girraj technical' }).select({ name: 1 }).sort({ name: 1 });
+//         // const result =await Playlist.find({author:'girraj technical'}).select({name:1}).sort({name: -1});
+//         console.log(result);
+//     } catch (err) {
 //         console.log(err);
 //     }
 // }
 
 // getDocument();
-// sort({name:1}) and sort({name:0}) for ascending order
+// sort({name:1}) for ascending order
 // sort({name:-1}) for descending order
 
 
@@ -204,19 +204,19 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 // updateDocument('63e1e646ff60dcdb3086a6f2');
 
 
-// const updateDocument=async (_id)=>{
-//     try{
-//         const result=await Playlist.findByIdAndUpdate({_id},{
-//             $set:{
+// const updateDocument = async (_id) => {
+//     try {
+//         const result = await Playlist.findByIdAndUpdate({ _id }, {
+//             $set: {
 //                 name: 'Mongoose'
 //             },
-//         },{
-//             new:true // option argument(if we don't add it then old data will be shown in console and new data will be updated in DB,if new:true then the data we are trying to update will show in console )
+//         }, {
+//             new: true // optional argument(it return the modified document after the update has been applied.)
 //         })
 
 //         console.log(result);
 
-//     }catch(err){
+//     } catch (err) {
 //         console.log(err);
 //     }
 // }
@@ -224,7 +224,7 @@ const Playlist=new mongoose.model('Playlist',playlistSchema)
 // updateDocument('63e1e646ff60dcdb3086a6f2');
 
 
-// update query in mongoose -
+// delete query in mongoose -
 // const deleteDocument=async(_id)=>{
 //     try{
 //         const result=await Playlist.deleteOne({_id});
